@@ -14,6 +14,7 @@ namespace RealTimeImageCutDisplay
         private string fileName = null;
         private Point point = new Point();
         private Size size = new Size();
+        bool capMode = false;
 
         public Form1()
         {
@@ -95,6 +96,44 @@ namespace RealTimeImageCutDisplay
             this.Size = new Size(w, h);
             this.Location = new Point(x, y);
         }
+        private void ScreenCapture()
+        {
+            Point point = new Point(TextParse(textBoxX.Text), TextParse(textBoxY.Text));
+            Size size = new Size(TextParse(textBoxWidth.Text), TextParse(textBoxHeight.Text));
+            Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            using (Bitmap img = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height))
+            {
+                using (Graphics g = Graphics.FromImage(img))
+                {
+                    //画面全体をコピーする
+                    g.CopyFromScreen(new Point(0, 0), new Point(0, 0), img.Size);
+                    g.Dispose();
+                }
+                //ImageオブジェクトのGraphicsオブジェクトを作成する
+
+                using (Graphics g = Graphics.FromImage(canvas))
+                {
+                    //切り取る部分の範囲を決定する。ここでは、位置(10,10)、大きさ100x100
+                    Rectangle srcRect = new Rectangle(point, size);
+                    //描画する部分の範囲を決定する。ここでは、位置(0,0)、大きさ100x100で描画する
+                    Rectangle desRect = new Rectangle(0, 0, pictureBox1.Size.Width, pictureBox1.Size.Height);
+
+                    //補間方法として最近傍補間を指定する
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+
+                    //画像の一部を描画する
+                    g.DrawImage(img, desRect, srcRect, GraphicsUnit.Pixel);
+                    g.Dispose();
+                }
+                img.Dispose();
+            }
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+            }
+            //PictureBox1に表示する
+            pictureBox1.Image = canvas;
+        }
         private void ImageUpdate(bool resize = false)
         {
             string fileName = GetNewImageFileName();
@@ -134,6 +173,10 @@ namespace RealTimeImageCutDisplay
                         g.Dispose();
                     }
 
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                    }
                     //PictureBox1に表示する
                     pictureBox1.Image = canvas;                
 
@@ -153,17 +196,31 @@ namespace RealTimeImageCutDisplay
             ImageUpdate();
         }
 
+
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
-            ImageUpdate(true);
-            Settings.Default.ClientFormSize = this.Size;
-            Settings.Default.Save();
+            if (Settings.Default.ClientFormSize != this.Size)
+            {
+                if (capMode)
+                {
+                    ScreenCapture();
+                }
+                else
+                {
+                    ImageUpdate(true);
+                }
+                Settings.Default.ClientFormSize = this.Size;
+                Settings.Default.Save();
+            }
         }
 
         private void Form1_Move(object sender, EventArgs e)
         {
-            Settings.Default.ClientFormPoint = this.Location;
-            Settings.Default.Save();
+            if (Settings.Default.ClientFormPoint != this.Location)
+            {
+                Settings.Default.ClientFormPoint = this.Location;
+                Settings.Default.Save();
+            }
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -180,12 +237,27 @@ namespace RealTimeImageCutDisplay
             if (fbd.ShowDialog(this) == DialogResult.OK)
             {
                 textBoxDirectory.Text = fbd.SelectedPath;
+                capMode = false;
             }
         }
 
         private void updateTimer_Tick(object sender, EventArgs e)
         {
-            ImageUpdate();
+            if (capMode == false)
+            {
+                ImageUpdate(true);
+            }
+        }
+        private void capButton_Click(object sender, EventArgs e)
+        {
+            capMode = true;
+            textBoxDirectory.Text = "";
+            fileName = null;
+
+            Settings.Default.Directory = "";
+            Settings.Default.Save();
+
+            ScreenCapture();
         }
     }
 }

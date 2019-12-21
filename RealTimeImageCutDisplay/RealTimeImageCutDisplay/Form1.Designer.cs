@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBoxDirectory = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,6 +43,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.updateTimer = new System.Windows.Forms.Timer(this.components);
+            this.capButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Location = new System.Drawing.Point(0, 58);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(304, 344);
+            this.pictureBox1.Size = new System.Drawing.Size(294, 341);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -64,7 +66,7 @@
             this.textBoxDirectory.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.textBoxDirectory.Location = new System.Drawing.Point(219, 3);
             this.textBoxDirectory.Name = "textBoxDirectory";
-            this.textBoxDirectory.Size = new System.Drawing.Size(78, 25);
+            this.textBoxDirectory.Size = new System.Drawing.Size(68, 25);
             this.textBoxDirectory.TabIndex = 1;
             // 
             // label1
@@ -169,7 +171,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(258, 30);
+            this.button1.Location = new System.Drawing.Point(250, 30);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(37, 25);
             this.button1.TabIndex = 5;
@@ -183,11 +185,26 @@
             this.updateTimer.Interval = 500;
             this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
             // 
+            // capButton
+            // 
+            this.capButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.capButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("capButton.BackgroundImage")));
+            this.capButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.capButton.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.capButton.Location = new System.Drawing.Point(154, 30);
+            this.capButton.Name = "capButton";
+            this.capButton.Size = new System.Drawing.Size(96, 25);
+            this.capButton.TabIndex = 11;
+            this.capButton.UseVisualStyleBackColor = true;
+            this.capButton.Click += new System.EventHandler(this.capButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 401);
+            this.ClientSize = new System.Drawing.Size(294, 398);
+            this.Controls.Add(this.capButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -228,6 +245,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Timer updateTimer;
+        private System.Windows.Forms.Button capButton;
     }
 }
 
