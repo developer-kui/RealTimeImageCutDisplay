@@ -217,8 +217,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxDirectory);
             this.Controls.Add(this.pictureBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "RealTimeImageCutDisplay";
             this.Load += new System.EventHandler(this.Form1_Load);

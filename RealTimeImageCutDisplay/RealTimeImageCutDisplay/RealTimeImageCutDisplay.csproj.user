@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>publish\</PublishUrlHistory>
-    <InstallUrlHistory />
+    <PublishUrlHistory>sftp://kui-develop.sakura.ne.jp/www/tool/RealTimeImageCutDisplay/|sftp://kui-develop.sakura.ne.jp/www/mcv/client4/|publish\</PublishUrlHistory>
+    <InstallUrlHistory>https://www.develop-kui.com/tool/RealTimeImageCutDisplay/|https://www.develop-kui.com/mcv/client4/</InstallUrlHistory>
     <SupportUrlHistory />
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
